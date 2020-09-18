@@ -1,4 +1,4 @@
-;(function () {
+(function () {
   const knownUnits = [
     '/10g',
     '/100g',
@@ -45,11 +45,20 @@
       console.log('Unknown unit', bUnit)
     }
 
+    // Sort by price
     if (aUnit == bUnit) {
       return aPrice > bPrice ? 1 : -1
     }
 
-    return aUnit > bUnit && aPrice > bPrice
+    // Put none at the end
+    if (aUnit == 'none') {
+      return 1
+    } else if (bUnit == 'none') {
+      return -1
+    }
+
+    // Sort by unit
+    return aUnit > bUnit
   })
 
   productsArray.forEach(function (product) {
