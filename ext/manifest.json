@@ -2,8 +2,8 @@
   "name": "Tesco Sort by Price Per Unit",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "This extension was created with the awesome extensionizr.com",
-  "homepage_url": "http://extensionizr.com",
+  "description": "Sorts Tesco grocery products by price per unit, converting between different denominations",
+  "homepage_url": "https://github.com/Pezmc/TescoSortByPricePerUnit",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -12,7 +12,7 @@
   "default_locale": "en",
   "browser_action": {
     "default_icon": "icons/icon19.png",
-    "default_title": "browser action demo"
+    "default_title": "Sort by Price Per Unit"
   },
   "background": {
     "scripts": ["js/background.js"]
