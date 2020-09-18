@@ -1,58 +1,60 @@
-const list = document.querySelector('[data-auto="product-list"]')
-const products = document.querySelectorAll('[data-auto="product-list"] > li')
-const productsArray = Array.from(products).sort(function (a, b) {
-  const aNode = a.querySelector('.price-per-quantity-weight')
-  const aPrice = parseFloat(
-    aNode.querySelector('[data-auto="price-value"]').textContent,
-  )
-  const aUnit = aNode.querySelector('.weight').textContent
+;(function () {
+  const knownUnits = [
+    '/10g',
+    '/100g',
+    '/kg',
+    '/10ml',
+    '/100ml',
+    '/litre',
+    '/each',
+    'none',
+  ]
 
-  const bNode = b.querySelector('.price-per-quantity-weight')
-  const bPrice = parseFloat(
-    bNode.querySelector('[data-auto="price-value"]').textContent,
-  )
-  const bUnit = bNode.querySelector('.weight').textContent
+  function normalize(price, unit) {
+    if (!knownUnits.includes(unit)) {
+      console.log('Unknown unit', unit)
+    }
 
-  let aPriceNormalised, aUnitNormalised, bPriceNormalised, bUnitNormalised
-  if (aUnit == '/100g' || aUnit == '/100ml') {
-    aPriceNormalised = aPrice * 10
-    aUnitNormalised = aUnit == '/100g' ? '/kg' : '/litre'
-  } else {
-    aPriceNormalised = aPrice
-    aUnitNormalised = aUnit
+    if (unit == '/10g' || unit == '/10ml') {
+      price = price * 100
+      unit = unit == '/10g' ? '/kg' : '/litre'
+    } else if (unit == '/100g' || unit == '/100ml') {
+      price = price * 10
+      unit = unit == '/100g' ? '/kg' : '/litre'
+    }
+
+    return [price, unit]
   }
 
-  if (bUnit == '/100g' || bUnit == '/100ml') {
-    bPriceNormalised = bPrice * 10
-    bUnitNormalised = bUnit == '/100g' ? '/kg' : '/litre'
-  } else {
-    bPriceNormalised = bPrice
-    bUnitNormalised = bUnit
+  function grabProductInfo(productNode) {
+    const infoNode = productNode.querySelector('.price-per-quantity-weight')
+    const priceNode = infoNode?.querySelector('[data-auto="price-value"]')
+    const price = parseFloat(priceNode?.textContent || 0)
+    const unit = infoNode?.querySelector('.weight').textContent || 'none'
+
+    return normalize(price, unit)
   }
 
-  if (
-    !['/100g', '/kg', '/100ml', '/litre', '/each'].includes(aUnitNormalised)
-  ) {
-    console.log('Unknown unit', aUnitNormalised)
-  }
+  const list = document.querySelector('[data-auto="product-list"]')
+  const products = document.querySelectorAll('[data-auto="product-list"] > li')
+  const productsArray = Array.from(products).sort(function (a, b) {
+    const [aPrice, aUnit] = grabProductInfo(a)
+    const [bPrice, bUnit] = grabProductInfo(b)
 
-  if (
-    !['/100g', '/kg', '/100ml', '/litre', '/each'].includes(bUnitNormalised)
-  ) {
-    console.log('Unknown unit', bUnitNormalised)
-  }
+    if (!knownUnits.includes(bUnit)) {
+      console.log('Unknown unit', bUnit)
+    }
 
-  if (aUnitNormalised == bUnitNormalised) {
-    return aPriceNormalised > bPriceNormalised ? 1 : -1
-  }
+    if (aUnit == bUnit) {
+      return aPrice > bPrice ? 1 : -1
+    }
 
-  return (
-    aPriceNormalised > bPriceNormalised && aUnitNormalised > bUnitNormalised
-  )
-})
+    return aUnit > bUnit && aPrice > bPrice
+  })
 
-productsArray.forEach(function (product) {
-  list.appendChild(product)
-})
+  productsArray.forEach(function (product) {
+    list.appendChild(product)
+  })
 
-console.log('Done')
+  console.log('Sorted done')
+})()
