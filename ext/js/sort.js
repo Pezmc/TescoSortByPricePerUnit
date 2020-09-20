@@ -1,8 +1,10 @@
 (function () {
   const knownUnits = [
+    '/1g',
     '/10g',
     '/100g',
     '/kg',
+    '/1ml',
     '/10ml',
     '/100ml',
     '/litre',
@@ -16,7 +18,10 @@
     }
 
     // todo: Make this more generic
-    if (unit == '/10g' || unit == '/10ml') {
+    if (unit == '/1g' || unit == '/1ml') {
+      price = price * 1000
+      unit = unit == '/1g' ? '/kg' : '/litre'
+    } else if (unit == '/10g' || unit == '/10ml') {
       price = price * 100
       unit = unit == '/10g' ? '/kg' : '/litre'
     } else if (unit == '/100g' || unit == '/100ml') {
