@@ -15,6 +15,7 @@
       console.log('Unknown unit', unit)
     }
 
+    // todo: Make this more generic
     if (unit == '/10g' || unit == '/10ml') {
       price = price * 100
       unit = unit == '/10g' ? '/kg' : '/litre'
