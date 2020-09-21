@@ -1,0 +1,17 @@
+{
+  "name": "TescoSortByPricePerUnit",
+  "version": "0.0.2",
+  "description": "Chrome Extension that sorts the items on the **current page** based on the price per unit",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pezmc/TescoSortByPricePerUnit.git"
+  },
+  "author": "Pez Cuckow",
+  "bugs": {
+    "url": "https://github.com/Pezmc/TescoSortByPricePerUnit/issues"
+  },
+  "homepage": "https://github.com/Pezmc/TescoSortByPricePerUnit#readme",
+  "devDependencies": {
+  }
+}
