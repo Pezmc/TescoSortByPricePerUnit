@@ -14,7 +14,7 @@
 
   function normalize(price, unit) {
     if (!knownUnits.includes(unit)) {
-      console.log('Unknown unit', unit)
+      console.log(`Unknown unit "${unit}"`)
     }
 
     // todo: Make this more generic
@@ -35,8 +35,8 @@
   function grabProductInfo(productNode) {
     const infoNode = productNode.querySelector('.price-per-quantity-weight')
     const priceNode = infoNode?.querySelector('[data-auto="price-value"]')
-    const price = parseFloat(priceNode?.textContent || 0)
-    const unit = infoNode?.querySelector('.weight').textContent || 'none'
+    const price = parseFloat(priceNode?.textContent.trim() || 0)
+    const unit = infoNode?.querySelector('.weight').textContent.trim() || 'none'
 
     return normalize(price, unit)
   }
@@ -64,7 +64,7 @@
     }
 
     // Sort by unit
-    return aUnit > bUnit
+    return aUnit > bUnit ? 1 : -1
   })
 
   productsArray.forEach(function (product) {
