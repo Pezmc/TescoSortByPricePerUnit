@@ -3,6 +3,12 @@
   "version": "0.0.2",
   "description": "Chrome Extension that sorts the items on the **current page** based on the price per unit",
   "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Pezmc/TescoSortByPricePerUnit.git"
@@ -13,5 +19,7 @@
   },
   "homepage": "https://github.com/Pezmc/TescoSortByPricePerUnit#readme",
   "devDependencies": {
+    "jest": "^26.4.2",
+    "jest-raw-loader": "^1.0.1"
   }
 }
