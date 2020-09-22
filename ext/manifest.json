@@ -10,12 +10,12 @@
     "128": "icons/icon128.png"
   },
   "default_locale": "en",
-  "browser_action": {
+  "page_action": {
     "default_icon": "icons/icon19.png",
     "default_title": "Sort by Price Per Unit"
   },
   "background": {
     "scripts": ["js/background.js"]
   },
-  "permissions": ["activeTab", "https://www.tesco.com/groceries/*"]
+  "permissions": ["https://www.tesco.com/groceries/*"]
 }
