@@ -12,7 +12,7 @@
     'none',
   ]
 
-  function normalize(price, unit) {
+  function normalize(price, unit, name) {
     if (!knownUnits.includes(unit)) {
       console.log(`Unknown unit "${unit}"`)
     }
@@ -29,7 +29,7 @@
       unit = unit == '/100g' ? '/kg' : '/litre'
     }
 
-    return [price, unit]
+    return [price, unit, name]
   }
 
   function grabProductInfo(productNode) {
@@ -37,15 +37,19 @@
     const priceNode = infoNode?.querySelector('[data-auto="price-value"]')
     const price = parseFloat(priceNode?.textContent.trim() || 0)
     const unit = infoNode?.querySelector('.weight').textContent.trim() || 'none'
+    const nameNode = productNode?.querySelector(
+      '[data-auto="product-tile--title"]',
+    )
+    const name = nameNode.textContent.trim() || 'unknown'
 
-    return normalize(price, unit)
+    return normalize(price, unit, name)
   }
 
   const list = document.querySelector('[data-auto="product-list"]')
   const products = document.querySelectorAll('[data-auto="product-list"] > li')
   const productsArray = Array.from(products).sort(function (a, b) {
-    const [aPrice, aUnit] = grabProductInfo(a)
-    const [bPrice, bUnit] = grabProductInfo(b)
+    const [aPrice, aUnit, aName] = grabProductInfo(a)
+    const [bPrice, bUnit, bName] = grabProductInfo(b)
 
     if (!knownUnits.includes(bUnit)) {
       console.log('Unknown unit', bUnit)
@@ -53,7 +57,13 @@
 
     // Sort by price
     if (aUnit == bUnit) {
-      return aPrice > bPrice ? 1 : -1
+      if (aPrice > bPrice) {
+        return 1
+      } else if (aPrice == bPrice) {
+        return aName > bName ? 1 : -1
+      } else {
+        return -1
+      }
     }
 
     // Put none at the end
@@ -71,5 +81,5 @@
     list.appendChild(product)
   })
 
-  console.log('Sorted done')
+  console.log('Sorting complete!')
 })()
