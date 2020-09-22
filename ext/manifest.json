@@ -1,6 +1,6 @@
 {
   "name": "Tesco Sort by Price Per Unit",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "manifest_version": 2,
   "description": "Sorts Tesco grocery products by price per unit, converting between different denominations",
   "homepage_url": "https://github.com/Pezmc/TescoSortByPricePerUnit",
