@@ -1,6 +1,6 @@
 {
   "name": "TescoSortByPricePerUnit",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Chrome Extension that sorts the items on the **current page** based on the price per unit",
   "main": "js/background.js",
   "directories": {
