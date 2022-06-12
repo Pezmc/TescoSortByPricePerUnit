@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/Pezmc/TescoSortByPricePerUnit#readme",
   "devDependencies": {
-    "jest": "^26.4.2",
+    "jest": "^28.1.1",
+    "jest-environment-jsdom": "^28.1.1",
     "jest-raw-loader": "^1.0.1"
   }
 }
