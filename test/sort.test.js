@@ -139,7 +139,7 @@ test('sorts the 2022 products by price per unit with mixed and unsorted units', 
   })
 
   const expected = [
-'£1.00/100sht',
+    '£1.00/100sht',
     '£1.17/100sht',
     '£1.17/100sht',
     '£1.17/100sht',
@@ -187,6 +187,69 @@ test('sorts the 2022 products by price per unit with mixed and unsorted units', 
     '£4.75/litre',
     '£5.00/litre',
     '£3.50/100ml',
+  ]
+
+  expect(prices).toEqual(expected)
+})
+
+test('sorts the 2022 products by price per unit even with dry weight elements', () => {
+  document.body.innerHTML = require('./groceries2022-drywt.html')
+
+  window.sortTesco()
+
+  const priceElements = document.body.querySelectorAll(
+    '[data-auto="product-list"] [class*=price__subtext]',
+  )
+
+  const prices = Array.from(priceElements).map((el) => {
+    return el.textContent.trim().replace(/\s*/g, '')
+  })
+
+  const expected = [
+    '£7.00/each',
+    '£0.28/100g',
+    '£0.39/100g',
+    '£0.44/100g',
+    '£0.74/100g',
+    '£0.74/100g',
+    '£7.50/kg',
+    '£0.75/100g',
+    '£7.64/kg',
+    '£0.92/100g',
+    '£0.92/100g',
+    '£0.95/100g',
+    '£0.97/100g',
+    '£1.04/100g',
+    '£1.04/100g',
+    '£11.25/kg',
+    '£1.18/100g',
+    '£12.00/kg',
+    '£12.00/kg',
+    '£12.17/kg',
+    '£12.86/kg',
+    '£1.34/100g',
+    '£1.37/100g',
+    '£1.46/100g',
+    '£15.00/kg',
+    '£15.91/kg',
+    '£17.00/kg',
+    '£20.00/kg',
+    '£21.74/kg',
+    '£2.23/100gDR.WT',
+    '£2.23/100gDR.WT',
+    '£27.50/kg',
+    '£28.41/kg',
+    '£2.86/100gDR.WT',
+    '£2.96/100gDR.WT',
+    '£33.89/kg',
+    '£3.50/100g',
+    '£3.54/100gDR.WT',
+    '£3.75/100g',
+    '£4.30/100g',
+    '£5.50/100gDR.WT',
+    '£5.60/100gDR.WT',
+    '£59.10/kg',
+    '£0.44/100ml',
   ]
 
   expect(prices).toEqual(expected)

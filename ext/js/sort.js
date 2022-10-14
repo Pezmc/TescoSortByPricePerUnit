@@ -20,6 +20,7 @@ window.sortTesco = function () {
 
   function normalize(price, unit, name) {
     unit = unit.replace('/', '')
+    unit = unit.replace(/\s*DR\.WT\s*/, '')
 
     if (!knownUnits.includes(unit)) {
       console.log(`Unknown unit "${unit}"`)
